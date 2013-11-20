@@ -3,7 +3,7 @@
  * Different types of tokens an English Number
  * can be made up of.
  */
-package tokens;
+package englishNumbers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,6 @@ enum TokenType {
     MILLION("million"),
     THOUSAND("thousand"),
     HUNDRED("hundred"),
-    TEN("ten"),
     /**
      * "twenty", "thirty", etc. 
      * Token's value should represent tens digit
@@ -36,7 +35,7 @@ enum TokenType {
             values.put("fifty", 5);
             values.put("sixty", 6);
             values.put("seventy", 7);
-            values.put("eigty", 8);
+            values.put("eighty", 8);
             values.put("ninety", 9);
         }
         
@@ -46,12 +45,13 @@ enum TokenType {
         }
     },
     /**
-     * "eleven", "twelve", etc.
+     * "ten", "eleven", "twelve", etc.
      * Token's value should represent ones digit
      */
-    TEEN("eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen"){
+    TEEN("ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen"){
         private Map<String, Integer> values = new HashMap<String, Integer>(9);
         {
+        	values.put("ten", 0);
             values.put("eleven", 1);
             values.put("twelve", 2);
             values.put("thirteen", 3);
@@ -109,7 +109,7 @@ enum TokenType {
     int getValue(String s){
         Map<String, Integer> values = getValues();
         for (Entry<String, Integer> e : values.entrySet()){
-            if (s.equals(e.getValue().toString())){
+            if (s.equals(e.getKey().toString())){
                 return e.getValue();
             }
         }

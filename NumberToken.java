@@ -1,8 +1,7 @@
  /** 
  * Atomic units of an English Number.
  */
-package thetoken;
-
+package englishNumbers;
 /**
  * A programmatic representation of an English
  * word for {@link EnglishNumber}. Consists
@@ -50,7 +49,7 @@ class NumberToken {
         // Determine token type
         assert (type == null);
         type = getTypeOf(s);
-        if (type = null){
+        if (type == null){
             em.error("Not recognized as a valid word: \"%s\"", s);
             return;
         }
@@ -94,16 +93,9 @@ class NumberToken {
      *         -1 if this token type has no associated value
      */
     private static int getValueOf(TokenType type, String s) {
-        switch (type){
-            case DIGIT:
-            case NTY:
-            case TEEN:
-                int toReturn = type.getValue(s);
-                assert (toReturn >= 0) : "No value found for token type " + type;
-                return toReturn;
-            default:
-                return NO_VAL;
-        }
+    	int toReturn = type.getValue(s);
+    	assert (toReturn >= 0) : "No value found for token type " + type;
+    	return type.getValue(s);
     }
     
     @Override

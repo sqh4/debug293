@@ -1,4 +1,4 @@
-package numberpackage;
+package englishNumbers;
 
 import java.io.PrintStream;
 

@@ -1,8 +1,9 @@
-package nopackage;
+package englishNumbers;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -45,16 +46,19 @@ public class EntryPoint {
         // Get the words from standard in
         List<String> words = new ArrayList<String>();
         Scanner in = new Scanner(input);
-        while (in.hasNext()){
-            String toAdd = in.next();
-            words.add(toAdd);
-        }
-            
-        // Create a number and use the words to initialize
-        EnglishNumber theNumber = new EnglishNumber();
-        boolean success = theNumber.initialize(words);
-        if (success){
-            output.println(theNumber.toInt());
+        while (in.hasNextLine()){
+            String[] toAdd = in.nextLine().split("\\s");
+            words = Arrays.asList(toAdd);   
+        
+        
+            output.println(words.toString());
+	         
+	        // Create a number and use the words to initialize
+	        EnglishNumber theNumber = new EnglishNumber();
+	        boolean success = theNumber.initialize(words);
+	        if (success){
+	            output.println(theNumber.toInt());
+	        }
         }
     }
 }

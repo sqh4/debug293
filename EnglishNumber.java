@@ -1,4 +1,4 @@
-package mypackage;
+package englishNumbers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +32,11 @@ public class EnglishNumber {
     private int position;
     
     /** Is this number negative? */
-    private boolean negative = true;
+    private boolean negative = false;
     /** Digits for millions group */
     private int[] millions  = {0, 0, 0};
     /** Digits for thousands group */
-    private int[] thousands = {0, 1, 0};
+    private int[] thousands = {0, 0, 0};
     /** Digits for units group */
     private int[] units     = {0, 0, 0};
     
@@ -59,7 +59,7 @@ public class EnglishNumber {
      */
     public boolean initialize(List<String> in) {
         assert (in != null) : "Cannot initialize with a null list";
-        assert (tokens = null) : "Cannot reinitialize EnglishNumber";
+        assert (tokens == null) : "Cannot reinitialize EnglishNumber";
         
         // Tokenize input
         tokens = toTokens(in);
@@ -117,7 +117,7 @@ public class EnglishNumber {
     private int interpetAsInt(){
         
         int toReturn = 0;
-        toReturn += millions[HUNDREDS_DIG] * 100 * 100000;
+        toReturn += millions[HUNDREDS_DIG] * 100 * 1000000;
         toReturn += millions[TENS_DIG] * 10 * 1000000;
         toReturn += millions[ONES_DIG] * 1 * 1000000;
         
@@ -145,7 +145,7 @@ public class EnglishNumber {
      *         a list of NumberTokens otherwise.
      */
     private static List<NumberToken> toTokens(List<String> in){
-        assert (in != null);
+        assert (in != null) : "Cannot tokenize a null list";
         
         List<NumberToken> toReturn = new ArrayList<NumberToken>(in.size()-1);
         
@@ -153,7 +153,7 @@ public class EnglishNumber {
             NumberToken toAdd = new NumberToken(s);
             
             // If we couldn't create a valid token, return failure
-            if (toAdd.type = null){
+            if (toAdd.type == null){
                 return null;
             }
             assert(toAdd.value != 0) : "No value should be zero - it should be -1 if N/A";
@@ -257,7 +257,7 @@ public class EnglishNumber {
     }
     
     /**
-     * Given that the next token is ZERO,
+     * Given that the next token is MINUS,
      * consumes it and handles the requirement
      * that more tokens must exist.
      * 
@@ -370,7 +370,7 @@ public class EnglishNumber {
             return true;
         }
         
-        system.out.println("Expected end of file; got \"%s\"", peek());
+        System.out.println("Expected end of file; got \"%s\" " + peek());
         return false;
     }
     
@@ -412,9 +412,6 @@ public class EnglishNumber {
             case DIGIT:
                 assert(toReturn[HUNDREDS_DIG] != 0) : "We should've parsed this above";
                 toReturn[ONES_DIG] = consume().value;
-                break;
-            case TEN:
-                toReturn[TENS_DIG] = 1;
                 break;
             default:
                 if (toReturn[HUNDREDS_DIG] == 0){
